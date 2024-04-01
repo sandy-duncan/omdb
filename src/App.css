@@ -1,5 +1,21 @@
-.max-width-container {
-  max-width: 1280px;
-  margin: 0 auto;
+/* header */
+header {
+  background: grey;
+  color: white;
 }
 
+/* main */
+main {
+  font-size: 1.1rem;
+  color: black;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    display: grid;
+    grid-template-columns: 35% 1fr;
+    column-gap: 2.25rem;
+    /* height of nav */
+    height: calc(100% - 96px)
+  }
+}

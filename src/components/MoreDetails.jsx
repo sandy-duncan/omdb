@@ -1,30 +1,49 @@
-export default function MoreDetails({ results }) {
+import '../styles/MoreDetails.css'
 
+export default function MoreDetails({ results, modalOpen, handleModal }) {
     if (!results) {
-        return <div>No extra results</div>;
+        return;
     }
 
     const { Poster, Title, Rated, Year, Genre, Runtime, Actors, Plot, Ratings } = results;
 
     return (
-        <div>
-            <h3>More Details</h3>
-            {/* <img src={Poster} alt={Title} /> */}
-            <p>{Title}</p>
-            <p>{Rated}</p>
-            <p>{Year}</p>
-            <p>{Genre}</p>
-            <p>{Runtime}</p>
-            <p>{Actors}</p>
-            <p>{Plot}</p>
+        <div className={`more-details ${modalOpen ? 'modal-active' : ''}`} aria-live="polite" role="region">
+            <div className="more-details__close-modal">
+                <span
+                    className="material-symbols-outlined"
+                    onClick={() => handleModal(false)}
+                >
+                    close
+                </span>
+            </div>
+            <div className="more-details__main-details">
+                <div className="main-details__image">
+                    <img src={Poster} alt="" />
+                </div>
+                <div className="main-details__info">
+                    <h1>{Title}</h1>
+                    <div className="info__ratings">
+                        <span className="ratings__rating">{Rated}</span>
+                        <span>{Year}</span>
+                        <span> &#183; {Genre} &#183; </span>
+                        <span>{Runtime}</span>
+                    </div>
+                    <span>{Actors}</span>
+                </div>
+            </div>
+            <div className="more-details__plot">
+                <p>{Plot}</p>
+            </div>
             {Ratings && (
-                <ul>
+                <div className="more-details__audience-ratings">
                     {Ratings.map((rating, index) => (
-                        <li key={index}>
-                            {rating.Source}: {rating.Value}
-                        </li>
+                        <div key={index} className="audience-ratings__rating">
+                            <div>{rating.Value}</div>
+                            <div>{rating.Source}</div>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     )
