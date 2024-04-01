@@ -1,0 +1,118 @@
+/* header */
+header {
+    background: grey;
+    color: white;
+}
+
+/* search bar wrapper */
+.search-bar {
+    padding: 1.5rem;
+}
+
+.search-bar .material-symbols-outlined {
+    color: white;
+}
+
+@media screen and (min-width:1024px) {
+    .search-bar {
+        display: flex;
+        column-gap: 3rem;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+}
+
+/* text input */
+.search-bar__input {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    column-gap: 0.5rem;
+    justify-content: center;
+}
+
+.search-bar__input input[type="text"] {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.search-bar__input input[type="text"]::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+/* filters section */
+@media screen and (min-width:1024px) {
+    .search-bar__filters {
+        display: flex;
+        column-gap: 3rem;
+    }    
+}
+
+/* slider section */
+.slider-filter {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.slider-filter__slider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+@media screen and (min-width:1024px) { 
+    .slider-filter {
+        text-align: left;
+        padding: 0;
+    }
+
+    .slider-filter__slider {
+        width: 250px;
+    }
+}
+
+/* rc slider */
+.rc-slider-track,
+.rc-slider-tracks {
+    background-color: lightgrey;
+    height: 5px;
+}
+
+.rc-slider-handle {
+    background-color: lightgrey;
+    border: solid 2px lightgrey;
+    opacity: 1;
+}
+
+/* type radio button section */
+.type-filter {
+    text-align: center;
+}
+
+.type-filter fieldset {
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
+    column-gap:0.5rem;
+    justify-content: space-between;
+}
+
+.type-filter legend {
+    padding: 0;
+}
+
+@media screen and (min-width:1024px) {
+    .type-filter {
+        text-align: left;
+    }
+    
+    .type-filter fieldset {
+        justify-content: baseline;
+    }
+}
