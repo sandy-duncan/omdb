@@ -1,0 +1,42 @@
+/* results list */
+.results-list {
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    overflow: scroll;
+}
+
+.results-list__total {
+    padding: 1.5rem;
+}
+
+/* individual result */
+.results-list__result {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: 1px solid grey;
+    column-gap: 1.5rem;
+    position: relative;
+    align-items: center;
+}
+
+.results-list__result:hover,
+.results-list__result.active {
+    background-color: lightgrey;
+}
+
+.result__image {
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 100px 0 0;
+}
+
+.result__image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.details__link {
+    display: block;
+}
