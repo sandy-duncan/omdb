@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/ResultsList.css"
 
 export default function ResultsList({ results, fetchMovieDetails, sliderValues, typeValue, handleLoadMore }) {
     const [filteredResults, setFilteredResults] = useState(null);
     const [activeResult, setActiveResult] = useState();
+    const tabRef = useRef();
 
     // filter search results
     useEffect(() => {
@@ -22,6 +23,23 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
 
     }, [results, sliderValues, typeValue]);
 
+    // set tab focus index after load more clicked
+    const setTabFocus = () => {
+        tabRef.current = filteredResults.length
+    }
+
+    // set focus
+    useEffect(() => {
+        if (
+            document.querySelector('#set-focus') &&
+            (document.activeElement ==
+                document.querySelector('.results-list__load-more button'))
+        ) {
+            document.querySelector('#set-focus').focus();
+        }
+    }, [filteredResults])
+
+    // if no results, be blank
     if (!results || filteredResults === null) {
         return;
     }
@@ -31,7 +49,7 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
             <div className="results-list__total">
                 Showing {filteredResults.length} of {results.totalResults} search results
             </div>
-            {filteredResults.map(({ Title, Year, imdbID, Poster }) => (
+            {filteredResults.map(({ Title, Year, imdbID, Poster }, index) => (
                 <div
                     key={imdbID}
                     className={`results-list__result ${activeResult === imdbID ? 'active' : ''}`}
@@ -48,6 +66,7 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
                                 fetchMovieDetails(imdbID);
                                 setActiveResult(imdbID);
                             }}
+                            id={index === tabRef.current ? 'set-focus' : ''}
                         >
                             {Title}
                         </a>
@@ -56,7 +75,14 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
                 </div>
             ))}
             <div className="results-list__load-more">
-                <button onClick={handleLoadMore}>Load more</button>
+                <button
+                    onClick={() => {
+                        handleLoadMore();
+                        setTabFocus();
+                    }}
+                >
+                    Load more
+                </button>
             </div>
         </div>
     );
