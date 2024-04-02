@@ -2,13 +2,17 @@
 
 Uses Node v20.12.0
 
-npm install
+'npm install'
 
-npm run dev
+'npm run dev' for local development http://localhost:5173/
+
+'npm run build' to build files for deployment
+
+'npm run preview' to preview built files on http://localhost:4173/
 
 ## ENV file
 
-Please add a .env file with VITE_API_KEY={your API key from https://www.omdbapi.com/}
+Please add a .env file with VITE_API_KEY='your API key from https://www.omdbapi.com/'
 
 ## React + Vite
 
