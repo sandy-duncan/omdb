@@ -31,7 +31,7 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
             <div className="results-list__total">
                 Showing {filteredResults.length} of {results.totalResults} search results
             </div>
-            {filteredResults.map(({ Title, Year, imdbID, Poster }, index) => (
+            {filteredResults.map(({ Title, Year, imdbID, Poster }) => (
                 <div
                     key={imdbID}
                     className={`results-list__result ${activeResult === imdbID ? 'active' : ''}`}
