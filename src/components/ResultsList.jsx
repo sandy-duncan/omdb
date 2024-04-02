@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/ResultsList.css"
 
-export default function ResultsList({ results, fetchMovieDetails, sliderValues, typeValue }) {
+export default function ResultsList({ results, fetchMovieDetails, sliderValues, typeValue, handleLoadMore }) {
     const [filteredResults, setFilteredResults] = useState(null);
     const [activeResult, setActiveResult] = useState();
 
@@ -16,20 +16,22 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
             }
             return (year >= sliderValues[0] && year <= sliderValues[1]) && Type === typeValue;
         });
-        
+
         console.log('filtered results', filtered)
         setFilteredResults(filtered);
 
     }, [results, sliderValues, typeValue]);
 
     if (!results || filteredResults === null) {
-        return ;
+        return;
     }
 
     return (
         <div className="results-list">
-            <div className="results-list__total">{filteredResults.length} RESULTS</div>
-            {filteredResults.map(({ Title, Year, imdbID, Poster }) => (
+            <div className="results-list__total">
+                Showing {filteredResults.length} of {results.totalResults} search results
+            </div>
+            {filteredResults.map(({ Title, Year, imdbID, Poster }, index) => (
                 <div
                     key={imdbID}
                     className={`results-list__result ${activeResult === imdbID ? 'active' : ''}`}
@@ -53,6 +55,9 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
                     </div>
                 </div>
             ))}
+            <div className="results-list__load-more">
+                <button onClick={handleLoadMore}>Load more</button>
+            </div>
         </div>
     );
 }

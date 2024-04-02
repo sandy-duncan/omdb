@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SearchBar from './components/SearchBar';
 import ResultsList from './components/ResultsList';
 import MoreDetails from './components/MoreDetails';
@@ -13,6 +13,7 @@ function App() {
   const [sliderValues, setSliderValues] = useState([1950, 2024]);
   const [type, setType] = useState('any');
   const [modalOpen, setModalOpen] = useState();
+  const searchRef = useRef(1);
 
   // handlers
   const handleSearchChange = (query) => {
@@ -31,13 +32,37 @@ function App() {
     setModalOpen(value)
   }
 
+  const handleLoadMore = () => {
+    searchRef.current = searchRef.current + 1
+    loadMore()
+  }
+
   // fetch all items with search term
   const searchMovies = async () => {
     fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&s=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log('full data', data)
+        console.log(`search response for ${searchQuery}`, data)
         setSearchResults(data);
+        searchRef.current = 1
+      })
+      .catch((error) => {
+        console.error('Error fetching search results:', error);
+      });
+  };
+
+  // load more with current search term
+  const loadMore = async () => {
+    fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&s=${searchQuery}&page=${searchRef.current}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(`load more response for ${searchQuery} at page ${searchRef.current}`, data)
+        setSearchResults((prevResults) => {
+          if (prevResults && data.Response === 'True') {
+            return { ...data, Search: [...prevResults.Search, ...data.Search] };
+          }
+          return data;
+        });
       })
       .catch((error) => {
         console.error('Error fetching search results:', error);
@@ -49,7 +74,7 @@ function App() {
     fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&i=${imdbID}&plot=full`)
       .then((res) => res.json())
       .then((data) => {
-        console.log('individual data', data)
+        console.log('more details response ', data)
         setTitleResult(data)
         handleModalChange(true)
       })
@@ -76,6 +101,7 @@ function App() {
           fetchMovieDetails={fetchMovieDetails}
           sliderValues={sliderValues}
           typeValue={type}
+          handleLoadMore={handleLoadMore}
         />
         <MoreDetails
           results={titleResult}

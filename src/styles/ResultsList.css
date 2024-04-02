@@ -40,3 +40,15 @@
 .details__link {
     display: block;
 }
+
+/* load more button */
+.results-list__load-more {
+    text-align: center;
+    margin: 1.5rem;
+}
+
+.results-list__load-more button {
+    background-color: lightgrey;
+    padding: 1rem;
+    border: 1px solid grey;
+}
