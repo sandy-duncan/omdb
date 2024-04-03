@@ -45,12 +45,12 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
     }
 
     return (
-        <div className="results-list">
+        <ul className="results-list">
             <div className="results-list__total">
                 Showing {filteredResults.length} of {results.totalResults} search results
             </div>
             {filteredResults.map(({ Title, Year, imdbID, Poster }, index) => (
-                <div
+                <li
                     key={imdbID}
                     className={`results-list__result ${activeResult === imdbID ? 'active' : ''}`}
                 >
@@ -72,7 +72,7 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
                         </a>
                         <span>{Year}</span>
                     </div>
-                </div>
+                </li>
             ))}
             <div className="results-list__load-more">
                 <button
@@ -84,7 +84,7 @@ export default function ResultsList({ results, fetchMovieDetails, sliderValues, 
                     Load more
                 </button>
             </div>
-        </div>
+        </ul>
     );
 }
 

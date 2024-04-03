@@ -3,6 +3,9 @@
     border-right: 1px solid grey;
     border-left: 1px solid grey;
     overflow: scroll;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .results-list__total {
