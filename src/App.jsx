@@ -38,7 +38,7 @@ function App() {
   }
 
   // fetch all items with search term
-  const searchMovies = async () => {
+  const searchMovies = () => {
     fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&s=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => {
@@ -52,7 +52,7 @@ function App() {
   };
 
   // load more with current search term
-  const loadMore = async () => {
+  const loadMore = () => {
     fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&s=${searchQuery}&page=${searchRef.current}`)
       .then((res) => res.json())
       .then((data) => {
@@ -70,7 +70,7 @@ function App() {
   };
 
   // fetch extra details about item by imdbID
-  const fetchMovieDetails = async (imdbID) => {
+  const fetchMovieDetails = (imdbID) => {
     fetch(`http://www.omdbapi.com/?apikey=${VITE_API_KEY}&i=${imdbID}&plot=full`)
       .then((res) => res.json())
       .then((data) => {
